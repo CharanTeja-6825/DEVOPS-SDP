@@ -36,10 +36,17 @@ const Register = ({ onRegisterSuccess }) => {
       if (result.success) {
         onRegisterSuccess();
       } else {
-        setError(result.error || 'Registration failed');
+        // Handle specific error messages in a user-friendly way
+        if (result.error && result.error.toLowerCase().includes('email already exists')) {
+          setError('This email is already registered. Please use a different email or try logging in.');
+        } else if (result.error && result.error.toLowerCase().includes('username already exists')) {
+          setError('This username is already taken. Please choose a different username.');
+        } else {
+          setError('Registration failed. Please try again later.');
+        }
       }
     } catch (error) {
-      setError('An unexpected error occurred');
+      setError('An unexpected error occurred. Please try again later.');
     } finally {
       setLoading(false);
     }
