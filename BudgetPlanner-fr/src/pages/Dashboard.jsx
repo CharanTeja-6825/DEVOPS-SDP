@@ -329,7 +329,7 @@ const Dashboard = () => {
                 <span className="text-sm">👋</span>
               </div>
               <div>
-                <p className="text-white font-medium text-sm">Hi, {user?.name}</p>
+                <p className="text-white font-medium text-sm">Hi, {user?.username}</p>
                 <p className="text-blue-200 text-xs">Welcome back!</p>
               </div>
             </div>

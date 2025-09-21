@@ -38,14 +38,12 @@ public class UserController {
 		return new ResponseEntity<>(saveUser,HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/login/{username}/{password}")
-	public ResponseEntity<?> login(
-	        @PathVariable String username,
-	        @PathVariable String password) {
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody User user) {
 
-	    User user = userRepo.findByUsernameAndPassword(username, password);
-	    if (user != null) {
-	        return ResponseEntity.ok(user);
+	    User u = userService.login(user.getUsername(), user.getPassword());
+	    if (u != null) {
+	        return ResponseEntity.ok(u);
 	    } else {
 	        return ResponseEntity.status(401).body("Invalid credentials");
 	    }

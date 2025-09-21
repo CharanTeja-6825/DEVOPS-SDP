@@ -1,21 +1,25 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import apiService from '../services/api';
+import { useNavigate } from 'react-router-dom';
 
 const AuthContext = createContext();
+
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // const navigate = useNavigate();
+
   useEffect(() => {
     // Check if user is logged in on app start
-    const savedUser = localStorage.getItem('user');
+    const savedUser = sessionStorage.getItem('user');
     if (savedUser) {
       try {
         setUser(JSON.parse(savedUser));
       } catch (error) {
         console.error('Error parsing saved user:', error);
-        localStorage.removeItem('user');
+        sessionStorage.removeItem('user');
       }
     }
     setLoading(false);
@@ -28,7 +32,7 @@ export const AuthProvider = ({ children }) => {
       
       // Save user data
       setUser(userData);
-      localStorage.setItem('user', JSON.stringify(userData));
+      sessionStorage.setItem('user', JSON.stringify(userData));
       
       return { success: true, user: userData };
     } catch (error) {
@@ -46,7 +50,7 @@ export const AuthProvider = ({ children }) => {
       
       // Auto-login after successful registration
       setUser(newUser);
-      localStorage.setItem('user', JSON.stringify(newUser));
+      sessionStorage.setItem('user', JSON.stringify(newUser));
       
       return { success: true, user: newUser };
     } catch (error) {
@@ -59,7 +63,8 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
+    // navigate("/");
   };
 
   return (

@@ -2,11 +2,23 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 
 const Login = ({ onLoginSuccess }) => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  // const [username, setUsername] = useState('');
+  // const [password, setPassword] = useState('');
+  const [user, setUser] = useState({
+    username:"",
+    password:"",
+  })
+
+
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+
+  const handleChange = (e) => {
+    const {id, value} = e.target;
+    setUser({...user, [id]:value});
+    setError("");
+  }
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,7 +31,7 @@ const Login = ({ onLoginSuccess }) => {
 
     setLoading(true);
     try {
-      const result = await login(username, password);
+      const result = await login(user);
       
       if (result.success) {
         onLoginSuccess();
@@ -57,8 +69,9 @@ const Login = ({ onLoginSuccess }) => {
           <div className="relative">
             <input
               type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              id="username"
+              value={user.username}
+              onChange={handleChange}
               className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-white placeholder-blue-200 transition-all duration-300"
               placeholder="Enter your username"
               required
@@ -78,8 +91,9 @@ const Login = ({ onLoginSuccess }) => {
           <div className="relative">
             <input
               type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={user.password}
+              id="password"
+              onChange={handleChange}
               className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent text-white placeholder-blue-200 transition-all duration-300"
               placeholder="Enter your password"
               required

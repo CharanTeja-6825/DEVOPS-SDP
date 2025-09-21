@@ -12,12 +12,15 @@ public class UserService {
 	@Autowired
 	UserRepository userRepo;
 	
-	public User Login(String username,String password) {
+	public User login(String username,String password) {
 		if(!userRepo.existsByUsernameAndPassword(username,password)) {
 			new RuntimeException("invalid Credentials");
 		}
-		User user=userRepo.findByUsername(username);
-		return user;
+		User user=userRepo.findByUsernameAndPassword(username, password);
+		if(user != null) {
+			return user;
+		}
+		return null;
 	}
 	
 	public User Register(User user) {
