@@ -28,7 +28,8 @@ const Register = ({ onRegisterSuccess }) => {
       const userData = {
         username,
         email,
-        password
+        password,
+        role : 'user',
       };
       
       const result = await register(userData);

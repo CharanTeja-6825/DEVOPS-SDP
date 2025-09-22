@@ -29,9 +29,14 @@ public class SavingGoalsService {
 	}
 	
 	public void addAmount(Long id,Long amount) {
-		SavingGoals goal=savingRepo.getById(id);
-		Long curamount=goal.getCurrentamount()+amount;
-		goal.setCurrentamount(curamount);
+		Optional<SavingGoals> goal = savingRepo.findById(id);
+		if(goal.isPresent()){
+			SavingGoals goalObj = goal.get();
+			Long curamount=goalObj.getCurrentamount()+amount;
+			goalObj.setCurrentamount(curamount);
+		}else{
+			System.out.println("Goal not Found");
+		}
 	}
 	
 }
