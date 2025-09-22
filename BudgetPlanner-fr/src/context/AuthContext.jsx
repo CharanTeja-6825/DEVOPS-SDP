@@ -67,8 +67,26 @@ export const AuthProvider = ({ children }) => {
     // navigate("/");
   };
 
+  const updateUserProfile = async (userId, userData) => {
+    try {
+      setLoading(true);
+      const updatedUser = await apiService.updateUser(userId, userData);
+      
+      // Update user data in state and session storage
+      setUser(updatedUser);
+      sessionStorage.setItem('user', JSON.stringify(updatedUser));
+      
+      return { success: true, user: updatedUser };
+    } catch (error) {
+      console.error('Profile update failed:', error);
+      return { success: false, error: error.message };
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, loading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, updateUserProfile, loading }}>
       {children}
     </AuthContext.Provider>
   );
