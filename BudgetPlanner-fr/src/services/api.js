@@ -65,6 +65,13 @@ class ApiService {
     });
   }
 
+  async updateUser(userId, userData) {
+    return this.request(`/user-api/${userId}`, {
+      method: 'PUT',
+      body: JSON.stringify(userData),
+    });
+  }
+
   // Income APIs
   async createIncome(incomeData) {
     return this.request('/income-api/create', {

@@ -7,6 +7,7 @@ import BudgetSummary from '../components/BudgetSummary';
 import TransactionList from '../components/TransactionList';
 import SavingsGoals from '../components/SavingsGoals';
 import ExpenseChart from '../components/ExpenseChart';
+import UserProfile from './UserProfile';
 
 // New Dashboard Overview Component
 const DashboardOverview = ({ onQuickAction }) => {
@@ -296,7 +297,8 @@ const Dashboard = () => {
     { id: 'income', name: 'Income', icon: '💰' },
     { id: 'expenses', name: 'Expenses', icon: '💸' },
     { id: 'savings', name: 'Savings', icon: '🎯' },
-    { id: 'analytics', name: 'Analytics', icon: '📈' }
+    { id: 'analytics', name: 'Analytics', icon: '📈' },
+    { id: 'profile', name: 'Profile', icon: '👤' }
   ];
 
   // Function to handle quick actions
@@ -380,6 +382,7 @@ const Dashboard = () => {
                   {activeTab === 'expenses' && 'Track your spending'}
                   {activeTab === 'savings' && 'Monitor your savings goals'}
                   {activeTab === 'analytics' && 'Detailed financial analysis'}
+                  {activeTab === 'profile' && 'Manage your account settings'}
                 </p>
               </div>
               <div className="flex items-center space-x-4">
@@ -444,6 +447,12 @@ const Dashboard = () => {
                   <div className="animate-slideInLeft">
                     <BudgetSummary />
                   </div>
+                </div>
+              )}
+
+              {activeTab === 'profile' && (
+                <div className="animate-fadeIn">
+                  <UserProfile />
                 </div>
               )}
             </div>
