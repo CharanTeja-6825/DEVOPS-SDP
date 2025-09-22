@@ -23,14 +23,21 @@ const Login = ({ onLoginSuccess }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    
     if (!user.username || !user.password) {
       setError('Please enter username and password');
       return;
     }
+
     setLoading(true);
     try {
       const result = await login(user);
+      
       if (result.success) {
+        // Store user role in session storage
+        if (result.user && result.user.role) {
+          sessionStorage.setItem('userRole', result.user.role);
+        }
         onLoginSuccess();
       } else {
         setError(result.error || 'Login failed');

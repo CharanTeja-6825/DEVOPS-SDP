@@ -64,8 +64,9 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     setUser(null);
-    sessionStorage.removeItem('user');
-    // navigate("/");
+    // Clear all session storage items
+    sessionStorage.clear();
+    window.location.href = '/';
   };
 
   const updateUserProfile = async (userId, userData) => {

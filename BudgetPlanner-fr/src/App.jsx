@@ -9,15 +9,14 @@ function AppContent() {
   const [currentPage, setCurrentPage] = useState('login');
   const { user } = useAuth();
 
-  // If user is logged in, show dashboard based on role
+  // If user is logged in, show appropriate dashboard
   if (user) {
-    // Support both 'role' and 'Role' (case-insensitive)
-    const userRole = user.role || user.Role || user.role?.toLowerCase() || user.Role?.toLowerCase();
+    // Check user role from session storage
+    const userRole = sessionStorage.getItem('userRole');
     if (userRole === 'admin') {
       return <AdminDashboard />;
-    } else {
-      return <Dashboard />;
     }
+    return <Dashboard />;
   }
 
   // If user is not logged in, show login/register pages
