@@ -28,7 +28,7 @@ jobs:
           context: ./BudgetPlanner-Backend/BudgetPlanner
           file: ./BudgetPlanner-FullStack/backend.Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-backend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sdp-backend:latest
           platforms: linux/amd64,linux/arm64
 
       - name: Build and push frontend image
@@ -37,5 +37,5 @@ jobs:
           context: ./BudgetPlanner-Frontend
           file: ./BudgetPlanner-FullStack/frontend.Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-frontend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/sdp-frontend:latest
           platforms: linux/amd64,linux/arm64
