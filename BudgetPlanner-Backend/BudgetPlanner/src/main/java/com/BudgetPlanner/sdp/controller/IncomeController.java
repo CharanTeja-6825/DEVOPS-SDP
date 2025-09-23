@@ -29,6 +29,12 @@ public class IncomeController {
 	@Autowired
 	IncomeRepository incomeRepo;
 	
+
+	 @GetMapping("/")
+    public String income() {
+        return "this is income controller";
+    }
+
 	
 	@PostMapping("/create")
 	public ResponseEntity<Income> createIcome(@RequestBody Income income) {
@@ -64,3 +70,4 @@ public class IncomeController {
 	}
 
 }
+
