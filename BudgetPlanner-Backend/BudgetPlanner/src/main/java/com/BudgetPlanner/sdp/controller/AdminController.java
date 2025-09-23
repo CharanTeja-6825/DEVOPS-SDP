@@ -18,6 +18,11 @@ public class AdminController {
     @Autowired
     private AdminService adminService;
 
+    @GetMapping("/")
+    public String admin() {
+        return "this is admin controller";
+    }
+
     
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
