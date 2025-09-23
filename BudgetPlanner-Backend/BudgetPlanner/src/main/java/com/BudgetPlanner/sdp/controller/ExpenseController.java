@@ -27,6 +27,12 @@ public class ExpenseController {
 	
 	@Autowired
 	ExpenseRepository expenseRepo;
+
+	@GetMapping("/")
+    public String expense() {
+        return "this is expense controller";
+    }
+
 	
 	@PostMapping("/create")
 	public ResponseEntity<Expense> create(@RequestBody Expense expense){
@@ -59,3 +65,4 @@ public class ExpenseController {
 		
 	}
 }
+
