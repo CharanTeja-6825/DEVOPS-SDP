@@ -24,6 +24,12 @@ public class UserController {
 	UserService userService;
 	@Autowired 
 	UserRepository userRepo;
+
+	 @GetMapping("/")
+    public String user() {
+        return "this is user controller";
+    }
+
 	
 	@PostMapping("/register")
 	public ResponseEntity<User> register(@RequestBody User user) {
@@ -54,3 +60,4 @@ public class UserController {
 	  }
 
 }
+
