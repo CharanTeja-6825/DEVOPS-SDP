@@ -20,7 +20,7 @@ import com.BudgetPlanner.sdp.repo.SavingGoalsRepository;
 import com.BudgetPlanner.sdp.service.SavingGoalsService;
 
 @RestController
-@RequestMapping("/goal-api")
+@RequestMapping("goal-api")
 @CrossOrigin(origins = "*")
 public class SavingGoalController {
 	
@@ -30,7 +30,7 @@ public class SavingGoalController {
 	@Autowired
 	SavingGoalsRepository goalRepo;
 
-	 @GetMapping("/")
+	@GetMapping("/")
     public String goals() {
         return "this is goals controller";
     }

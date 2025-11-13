@@ -17,7 +17,7 @@ import com.BudgetPlanner.sdp.repo.UserRepository;
 import com.BudgetPlanner.sdp.service.UserService;
 
 @RestController
-@RequestMapping("/user-api")
+@RequestMapping("user-api")
 @CrossOrigin(origins = "*")
 public class UserController {
 	

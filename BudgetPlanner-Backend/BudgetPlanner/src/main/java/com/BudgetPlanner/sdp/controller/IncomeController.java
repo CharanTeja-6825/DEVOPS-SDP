@@ -19,7 +19,7 @@ import com.BudgetPlanner.sdp.repo.IncomeRepository;
 import com.BudgetPlanner.sdp.service.IncomeService;
 
 @RestController
-@RequestMapping("/income-api")
+@RequestMapping("income-api")
 @CrossOrigin(origins = "*")
 public class IncomeController {
 	
@@ -55,7 +55,7 @@ public class IncomeController {
 		return new ResponseEntity<String>("income deleted successfully",HttpStatus.OK);
 	}
 	
-	@GetMapping("/getAll/{id}")
+	@GetMapping("/getall/{id}")
 	public ResponseEntity<List<Income>> getAllIncomes(@PathVariable Long id) {
 	    List<Income> incomes = incomeService.getAllIncomesByUserId(id);
 	    return new ResponseEntity<>(incomes, HttpStatus.OK);
