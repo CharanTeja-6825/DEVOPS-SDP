@@ -70,154 +70,124 @@ const DashboardOverview = ({ onQuickAction }) => {
 
   return (
     <div className="space-y-8">
-      {/* Hero Stats Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {quickStats.map((stat, index) => (
-          <div
-            key={stat.title}
-            className={`glass rounded-2xl p-6 shadow-2xl border border-white/20 hover:scale-105 transition-all duration-300 animate-slideInUp bg-gradient-to-br ${stat.bgGradient}`}
-            style={{ animationDelay: `${index * 100}ms` }}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className={`w-12 h-12 bg-gradient-to-br ${stat.gradient} rounded-xl flex items-center justify-center shadow-lg`}>
-                <span className="text-2xl">{stat.icon}</span>
+      {/* Hero Stats Grid - Unique Geometric Style */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Balance Card */}
+        <div className="relative p-8 bg-gradient-to-br from-primary/20 to-[#1a1d23] border-l-8 border-primary shadow-2xl transform -skew-y-1 hover:skew-y-0 transition-all duration-300 animate-fadeIn">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl"></div>
+          <div className="transform skew-y-1 relative z-10">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/50 flex items-center justify-center border-4 border-primary/40 transform rotate-45 shadow-lg">
+                <span className="text-3xl transform -rotate-45">💰</span>
               </div>
-              <div className={`text-sm font-medium ${stat.changeColor}`}>
-                {stat.change}
-              </div>
+              <span className="text-sm font-black uppercase tracking-wider theme-primary">Total Balance</span>
             </div>
-            <div>
-              <p className="text-white/70 text-sm font-medium">{stat.title}</p>
-              <p className="text-3xl font-bold text-white mt-1">{stat.value}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Main Dashboard Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Left Column - Quick Actions */}
-        <div className="space-y-6">
-          {/* Quick Actions Card */}
-          <div className="glass rounded-2xl p-6 shadow-2xl border border-white/20 animate-slideInLeft">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center space-x-2">
-              <span>⚡</span>
-              <span>Quick Action</span>
-            </h3>
-            <div className="space-y-3">
-              <button 
-                onClick={() => onQuickAction('income')}
-                className="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white py-3 px-4 rounded-xl hover:from-emerald-600 hover:to-teal-700 transition-all duration-300 shadow-lg flex items-center space-x-3"
-              >
-                <span className="text-lg">💰</span>
-                <span className="font-semibold">Add Income</span>
-              </button>
-              <button 
-                onClick={() => onQuickAction('expenses')}
-                className="w-full bg-gradient-to-r from-rose-500 to-pink-600 text-white py-3 px-4 rounded-xl hover:from-rose-600 hover:to-pink-700 transition-all duration-300 shadow-lg flex items-center space-x-3"
-              >
-                <span className="text-lg">💸</span>
-                <span className="font-semibold">Add Expense</span>
-              </button>
-              <button 
-                onClick={() => onQuickAction('savings')}
-                className="w-full bg-gradient-to-r from-yellow-500 to-orange-600 text-white py-3 px-4 rounded-xl hover:from-yellow-600 hover:to-orange-700 transition-all duration-300 shadow-lg flex items-center space-x-3"
-              >
-                <span className="text-lg">🎯</span>
-                <span className="font-semibold">Set Goal</span>
-              </button>
-            </div>
-          </div>
-
-          {/* Budget Health Card */}
-          <div className="glass rounded-2xl p-6 shadow-2xl border border-white/20 animate-slideInLeft" style={{ animationDelay: '200ms' }}>
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center space-x-2">
-              <span>❤️</span>
-              <span>Budget Health</span>
-            </h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="text-white/80">Spending Ratio</span>
-                <span className="text-white font-bold">
-                  {totalIncome > 0 ? ((totalExpenses / totalIncome) * 100).toFixed(1) : 0}%
-                </span>
-              </div>
-              <div className="w-full bg-white/20 rounded-full h-3">
-                <div
-                  className={`h-3 rounded-full transition-all duration-500 ${
-                    totalIncome > 0 && (totalExpenses / totalIncome) > 0.8
-                      ? 'bg-gradient-to-r from-red-400 to-rose-500'
-                      : totalIncome > 0 && (totalExpenses / totalIncome) > 0.6
-                      ? 'bg-gradient-to-r from-yellow-400 to-orange-500'
-                      : 'bg-gradient-to-r from-green-400 to-emerald-500'
-                  }`}
-                  style={{ width: `${totalIncome > 0 ? Math.min((totalExpenses / totalIncome) * 100, 100) : 0}%` }}
-                ></div>
-              </div>
-              <div className="flex items-center space-x-2">
-                <div className={`w-3 h-3 rounded-full ${
-                  totalIncome > 0 && (totalExpenses / totalIncome) > 0.8
-                    ? 'bg-red-400'
-                    : totalIncome > 0 && (totalExpenses / totalIncome) > 0.6
-                    ? 'bg-yellow-400'
-                    : 'bg-green-400'
-                }`}></div>
-                <span className="text-white/80 text-sm">
-                  {totalIncome > 0 && (totalExpenses / totalIncome) > 0.8
-                    ? 'High spending - Consider reducing expenses'
-                    : totalIncome > 0 && (totalExpenses / totalIncome) > 0.6
-                    ? 'Moderate spending - Room for improvement'
-                    : 'Healthy spending - Great job!'}
-                </span>
-              </div>
-            </div>
+            <p className={`text-5xl font-black mb-2 ${balance >= 0 ? 'theme-primary' : 'theme-accent'}`}>{balance >= 0 ? '+' : ''}${balance.toLocaleString()}</p>
+            <p className="text-light/60 text-sm font-bold uppercase">{income.length} income sources</p>
           </div>
         </div>
 
-        {/* Center Column - Recent Activity */}
-        <div className="glass rounded-2xl p-6 shadow-2xl border border-white/20 animate-slideInUp" style={{ animationDelay: '300ms' }}>
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <span>📊</span>
-              <span>Recent Activity</span>
+        {/* Income Card */}
+        <div className="relative p-8 bg-gradient-to-br from-primary/15 via-[#1a1d23] to-transparent border-t-8 border-primary shadow-2xl transform skew-x-1 hover:skew-x-0 transition-all duration-300 animate-fadeIn" style={{ animationDelay: '100ms' }}>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/10 blur-3xl"></div>
+          <div className="transform -skew-x-1 relative z-10">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-primary/50 to-primary/20 flex items-center justify-center border-4 border-primary/40" style={{ clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)' }}>
+                <span className="text-3xl">📈</span>
+              </div>
+              <span className="text-sm font-black uppercase tracking-wider theme-primary">Total Income</span>
             </div>
-            <span className="text-sm text-white/60">{recentTransactions.length} recent</span>
+            <p className="text-5xl font-black mb-2 text-emerald-300">+${totalIncome.toLocaleString()}</p>
+            <p className="text-light/60 text-sm font-bold uppercase">{income.length} transactions</p>
+          </div>
+        </div>
+
+        {/* Expenses Card */}
+        <div className="relative p-8 bg-gradient-to-br from-accent/20 to-[#1a1d23] border-r-8 border-accent shadow-2xl transform -skew-x-1 hover:skew-x-0 transition-all duration-300 animate-fadeIn" style={{ animationDelay: '200ms' }}>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-accent/10 blur-3xl"></div>
+          <div className="transform skew-x-1 relative z-10">
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-accent to-accent/50 flex items-center justify-center border-4 border-accent/40" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}>
+                <span className="text-3xl">💸</span>
+              </div>
+              <span className="text-sm font-black uppercase tracking-wider theme-accent">Total Expenses</span>
+            </div>
+            <p className="text-5xl font-black mb-2 text-rose-300">-${totalExpenses.toLocaleString()}</p>
+            <p className="text-light/60 text-sm font-bold uppercase">{expenses.length} transactions</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Dashboard Grid - Unique 2-Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Recent Activity */}
+        <div className="relative p-8 bg-gradient-to-br from-[#08D9D6]/15 via-[#1e2329] to-[#242a32] border-l-8 border-primary shadow-2xl animate-fadeIn" style={{ animationDelay: '300ms', clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%)' }}>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/10 to-accent/10 rounded-full blur-3xl opacity-30"></div>
+          <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-accent/10 to-transparent rounded-full blur-3xl opacity-30"></div>
+          
+          <h3 className="text-2xl font-black mb-8 flex items-center justify-between relative z-10 uppercase tracking-wider">
+            <div className="flex items-center gap-4">
+              <div className="relative w-14 h-14 bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center border-4 border-primary/40 transform rotate-45 shadow-lg">
+                <span className="text-2xl transform -rotate-45">📊</span>
+              </div>
+              <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">Activity Feed</span>
+            </div>
+            <div className="px-5 py-2 bg-gradient-to-r from-primary/30 to-accent/30 text-sm font-black border-2 border-primary/50 transform -skew-x-6">
+              <span className="transform skew-x-6 block theme-primary">{recentTransactions.length} RECENT</span>
+            </div>
           </h3>
           
           {recentTransactions.length === 0 ? (
-            <div className="text-center py-8">
-              <div className="w-16 h-16 mx-auto bg-white/10 rounded-full flex items-center justify-center mb-4">
-                <span className="text-2xl">📈</span>
+            <div className="text-center py-16 relative z-10">
+              <div className="w-32 h-32 mx-auto bg-gradient-to-br from-[#242a32] to-[#1a1d23] flex items-center justify-center mb-6 border-4 border-[#3a404b] transform rotate-45 shadow-2xl">
+                <span className="text-5xl transform -rotate-45">📈</span>
               </div>
-              <p className="text-white/60">No recent transactions</p>
+              <p className="text-light/40 font-bold text-lg uppercase tracking-wider">No transactions yet</p>
             </div>
           ) : (
-            <div className="space-y-3">
+            <div className="space-y-4 relative z-10">
               {recentTransactions.map((transaction, index) => (
                 <div
                   key={transaction.uniqueKey || `transaction-${index}`}
-                  className="flex items-center justify-between p-4 bg-white/10 rounded-xl border border-white/20 hover:bg-white/15 transition-all duration-300"
+                  className={`group relative flex items-center justify-between p-5 transition-all duration-300 border-2 hover:scale-[1.03] ${
+                    transaction.type === 'income' 
+                      ? 'bg-gradient-to-r from-primary/25 via-primary/10 to-transparent border-l-8 border-primary hover:border-primary/80 hover:from-primary/35 transform skew-y-1 hover:skew-y-0' 
+                      : 'bg-gradient-to-r from-accent/25 via-accent/10 to-transparent border-l-8 border-accent hover:border-accent/80 hover:from-accent/35 transform -skew-y-1 hover:skew-y-0'
+                  }`}
+                  style={{ 
+                    clipPath: transaction.type === 'income' 
+                      ? 'polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%)' 
+                      : 'polygon(0 0, 100% 0, 100% 100%, 16px 100%, 0 calc(100% - 16px))'
+                  }}
                 >
-                  <div className="flex items-center space-x-3">
-                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                  <div className="flex items-center gap-5">
+                    <div className={`relative w-16 h-16 flex items-center justify-center shadow-xl transform transition-transform duration-300 group-hover:rotate-12 ${
                       transaction.type === 'income' 
-                        ? 'bg-gradient-to-br from-emerald-400 to-teal-600' 
-                        : 'bg-gradient-to-br from-rose-400 to-pink-600'
-                    }`}>
-                      <span className="text-lg">{transaction.type === 'income' ? '💰' : '💸'}</span>
+                        ? 'bg-gradient-to-br from-primary to-primary/50 border-4 border-primary/40' 
+                        : 'bg-gradient-to-br from-accent to-accent/50 border-4 border-accent/40'
+                    }`}
+                      style={{ clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)' }}
+                    >
+                      <span className="text-2xl">{transaction.type === 'income' ? '💰' : '💸'}</span>
                     </div>
                     <div>
-                      <p className="text-white font-semibold">{transaction.description}</p>
-                      <p className="text-white/60 text-sm">{transaction.category}</p>
+                      <p className="font-black text-lg uppercase tracking-wide">{transaction.description}</p>
+                      <p className="text-light/50 text-sm mt-2 flex items-center gap-3">
+                        <span className={`px-3 py-1 font-bold text-xs uppercase transform -skew-x-6 ${
+                          transaction.type === 'income' ? 'bg-primary/20 border border-primary/50' : 'bg-accent/20 border border-accent/50'
+                        }`}>
+                          <span className="transform skew-x-6 block">{transaction.category}</span>
+                        </span>
+                        <span className="font-semibold">{transaction.date}</span>
+                      </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className={`font-bold ${
-                      transaction.type === 'income' ? 'text-emerald-300' : 'text-rose-300'
+                    <p className={`font-black text-2xl tracking-tight ${
+                      transaction.type === 'income' ? 'theme-primary' : 'theme-accent'
                     }`}>
                       {transaction.type === 'income' ? '+' : '-'}${transaction.amount.toLocaleString()}
                     </p>
-                    <p className="text-white/60 text-sm">{transaction.date}</p>
                   </div>
                 </div>
               ))}
@@ -225,62 +195,51 @@ const DashboardOverview = ({ onQuickAction }) => {
           )}
         </div>
 
-        {/* Right Column - Goals & Insights */}
-        <div className="space-y-6">
-          {/* Monthly Overview */}
-          <div className="glass rounded-2xl p-6 shadow-2xl border border-white/20 animate-slideInRight">
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center space-x-2">
-              <span>📅</span>
-              <span>This Month</span>
-            </h3>
-            <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-white/80">Income</span>
-                <span className="text-emerald-300 font-bold">+${totalIncome.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-white/80">Expenses</span>
-                <span className="text-rose-300 font-bold">-${totalExpenses.toLocaleString()}</span>
-              </div>
-              <div className="border-t border-white/20 pt-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-white font-semibold">Net</span>
-                  <span className={`font-bold text-lg ${balance >= 0 ? 'text-emerald-300' : 'text-rose-300'}`}>
-                    {balance >= 0 ? '+' : ''}${balance.toLocaleString()}
-                  </span>
+        {/* Monthly Overview */}
+        <div className="relative p-8 bg-gradient-to-br from-[#FF2E63]/15 via-[#1e2329] to-[#1a1d23] border-r-8 border-accent shadow-2xl transform -skew-y-1 hover:skew-y-0 transition-all duration-300 animate-fadeIn" style={{ animationDelay: '400ms' }}>
+          <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-accent/20 blur-3xl"></div>
+          <div className="absolute -top-10 -left-10 w-48 h-48 bg-primary/20 blur-3xl"></div>
+          
+          <h3 className="text-2xl font-black mb-8 flex items-center gap-4 relative z-10 uppercase tracking-wider transform skew-y-1">
+            <div className="w-14 h-14 bg-gradient-to-br from-accent/30 to-accent/10 flex items-center justify-center border-4 border-accent/50 shadow-lg transform rotate-45">
+              <span className="text-2xl transform -rotate-45">📅</span>
+            </div>
+            <span className="bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">Monthly Stats</span>
+          </h3>
+          
+          <div className="space-y-5 relative z-10 transform skew-y-1">
+            <div className="p-6 bg-gradient-to-r from-primary/20 to-[#242a32] border-l-8 border-primary flex justify-between items-center hover:border-primary/60 hover:from-primary/30 transition-all transform skew-x-1 hover:skew-x-0 shadow-lg">
+              <div className="flex items-center gap-3 transform -skew-x-1">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary/50 to-primary/20 flex items-center justify-center border-2 border-primary/70 shadow-lg">
+                  <span className="text-3xl">💰</span>
                 </div>
+                <span className="font-black text-lg uppercase tracking-wide">Income</span>
+              </div>
+              <span className="text-emerald-300 font-black text-3xl transform -skew-x-1">+${totalIncome.toLocaleString()}</span>
+            </div>
+            
+            <div className="p-6 bg-gradient-to-r from-accent/20 to-[#242a32] border-l-8 border-accent flex justify-between items-center hover:border-accent/60 hover:from-accent/30 transition-all transform -skew-x-1 hover:skew-x-0 shadow-lg">
+              <div className="flex items-center gap-3 transform skew-x-1">
+                <div className="w-12 h-12 bg-gradient-to-br from-accent/50 to-accent/20 flex items-center justify-center border-2 border-accent/70 shadow-lg">
+                  <span className="text-3xl">💸</span>
+                </div>
+                <span className="font-black text-lg uppercase tracking-wide">Expenses</span>
+              </div>
+              <span className="text-rose-300 font-black text-3xl transform skew-x-1">-${totalExpenses.toLocaleString()}</span>
+            </div>
+            
+            <div className="mt-6 p-8 bg-gradient-to-br from-primary/30 via-accent/30 to-primary/30 border-4 border-dashed ${
+              balance >= 0 ? 'border-primary/80 shadow-primary/20' : 'border-accent/80 shadow-accent/20'
+            } transform skew-y-1 hover:skew-y-0 transition-all shadow-2xl">
+              <div className="flex justify-between items-center transform -skew-y-1">
+                <span className="font-black text-xl uppercase tracking-widest">Net Balance</span>
+                <span className={`font-black text-4xl ${
+                  balance >= 0 ? 'theme-primary' : 'theme-accent'
+                }`}>
+                  {balance >= 0 ? '+' : ''}${balance.toLocaleString()}
+                </span>
               </div>
             </div>
-          </div>
-
-          {/* Savings Overview */}
-          <div className="glass rounded-2xl p-6 shadow-2xl border border-white/20 animate-slideInRight" style={{ animationDelay: '200ms' }}>
-            <h3 className="text-xl font-bold text-white mb-6 flex items-center space-x-2">
-              <span>🎯</span>
-              <span>Savings Goals</span>
-            </h3>
-            {savingsGoals.length === 0 ? (
-              <div className="text-center py-4">
-                <p className="text-white/60 text-sm">No savings goals set</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-white/80">Progress</span>
-                  <span className="text-yellow-300 font-bold">{savingsProgress.toFixed(1)}%</span>
-                </div>
-                <div className="w-full bg-white/20 rounded-full h-3">
-                  <div
-                    className="h-3 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 transition-all duration-500"
-                    style={{ width: `${Math.min(savingsProgress, 100)}%` }}
-                  ></div>
-                </div>
-                <div className="text-center">
-                  <p className="text-white font-semibold">${totalSavings.toLocaleString()}</p>
-                  <p className="text-white/60 text-sm">of ${totalSavingsTarget.toLocaleString()} target</p>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </div>
@@ -308,63 +267,56 @@ const Dashboard = () => {
 
   return (
     <BudgetProvider>
-      <div className="min-h-screen gradient-purple flex">
+      <div className="min-h-screen bg-[#252A34] flex">
         {/* Sidebar Navigation */}
-        <aside className="w-64 glass border-r border-white/10 flex flex-col">
+        <aside className="w-20 bg-gradient-to-b from-[#1a1d23] to-[#252A34] border-r-4 border-primary/30 flex flex-col items-center shadow-2xl">
           {/* Sidebar Header */}
-          <div className="p-6 border-b border-white/10">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center shadow-lg">
-                <span className="text-xl">💰</span>
-              </div>
-              <div>
-                <h1 className="text-lg font-bold text-white">Budget Planner</h1>
-                <p className="text-blue-200 text-xs">Smart financial management</p>
-              </div>
+          <div className="p-4 border-b-2 border-primary/20 w-full">
+            <div className="w-12 h-12 bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center shadow-lg transform rotate-45 hover:rotate-0 transition-all duration-300 mx-auto">
+              <span className="text-2xl transform -rotate-45">💰</span>
             </div>
           </div>
 
           {/* User Info */}
-          <div className="p-4 border-b border-white/10">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
-                <span className="text-sm">👋</span>
-              </div>
-              <div>
-                <p className="text-white font-medium text-sm">Hi, {user?.username}</p>
-                <p className="text-blue-200 text-xs">Welcome back!</p>
-              </div>
+          <div className="p-4 border-b-2 border-primary/20 w-full">
+            <div className="w-12 h-12 bg-gradient-to-br from-accent/30 to-accent/10 rounded-full flex items-center justify-center border-2 border-accent/50 mx-auto hover:scale-110 transition-all duration-300">
+              <span className="text-xl">👋</span>
             </div>
           </div>
 
           {/* Navigation Menu */}
-          <nav className="flex-1 p-4">
-            <div className="space-y-2">
+          <nav className="flex-1 p-2 py-6">
+            <div className="space-y-4">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className={`w-full flex items-center space-x-3 px-4 py-3 rounded-xl font-medium text-sm transition-all duration-300 ${
+                  className={`group relative w-12 h-12 flex items-center justify-center transition-all duration-300 ${
                     activeTab === tab.id
-                      ? 'bg-white/20 text-white shadow-lg backdrop-blur-sm border border-white/30'
-                      : 'text-blue-200 hover:text-white hover:bg-white/10'
+                      ? 'bg-gradient-to-br from-primary to-primary/60 shadow-lg shadow-primary/50 transform rotate-12'
+                      : 'bg-[#2a3038] hover:bg-[#3a404b] border-2 border-[#3a404b] hover:border-primary/50 hover:scale-110'
                   }`}
+                  title={tab.name}
                 >
-                  <span className="text-lg">{tab.icon}</span>
-                  <span>{tab.name}</span>
+                  <span className={`text-xl transition-transform duration-300 ${
+                    activeTab === tab.id ? 'transform -rotate-12' : 'group-hover:scale-125'
+                  }`}>{tab.icon}</span>
+                  {activeTab === tab.id && (
+                    <div className="absolute -right-1 -top-1 w-3 h-3 bg-accent rounded-full animate-pulse border-2 border-[#252A34]"></div>
+                  )}
                 </button>
               ))}
             </div>
           </nav>
 
           {/* Sidebar Footer */}
-          <div className="p-4 border-t border-white/10">
+          <div className="p-4 border-t-2 border-accent/20 w-full">
             <button
               onClick={logout}
-              className="w-full bg-white/10 hover:bg-white/20 text-white px-4 py-3 rounded-xl border border-white/20 transition-all duration-300 backdrop-blur-sm flex items-center justify-center space-x-2"
+              className="w-12 h-12 bg-gradient-to-br from-accent/30 to-accent/10 hover:from-accent/50 hover:to-accent/20 border-2 border-accent/50 flex items-center justify-center transition-all duration-300 mx-auto hover:scale-110 shadow-lg"
+              title="Logout"
             >
-              <span>🚪</span>
-              <span>Logout</span>
+              <span className="text-xl">🚪</span>
             </button>
           </div>
         </aside>
@@ -372,11 +324,11 @@ const Dashboard = () => {
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col">
           {/* Top Header */}
-          <header className="glass border-b border-white/10 p-6">
+          <header className="bg-gradient-to-r from-[#1a1d23] to-[#252A34] border-b-4 border-primary/30 p-6 shadow-xl">
             <div className="flex justify-between items-center">
               <div>
-                <h2 className="text-2xl font-bold text-white capitalize">{activeTab}</h2>
-                <p className="text-blue-200 text-sm">
+                <h2 className="text-3xl font-black uppercase tracking-wider bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">{activeTab}</h2>
+                <p className="text-light/60 text-sm font-semibold mt-1">
                   {activeTab === 'dashboard' && 'Overview of your financial status'}
                   {activeTab === 'income' && 'Manage your income sources'}
                   {activeTab === 'expenses' && 'Track your spending'}
@@ -386,22 +338,26 @@ const Dashboard = () => {
                 </p>
               </div>
               <div className="flex items-center space-x-4">
-                <div className="hidden md:flex items-center space-x-2 text-white/80 text-sm">
-                  <span>🗓️</span>
-                  <span>Last updated: {new Date().toLocaleDateString()}</span>
+                <div className="hidden md:flex items-center space-x-2 px-4 py-2 bg-[#2a3038] border-2 border-primary/30 transform -skew-x-6">
+                  <span className="transform skew-x-6 flex items-center gap-2 font-bold text-sm">
+                    <span>🗓️</span>
+                    <span className="theme-primary">{new Date().toLocaleDateString()}</span>
+                  </span>
                 </div>
-                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                <span className="text-green-300 text-sm font-medium">Live</span>
+                <div className="flex items-center gap-2 px-3 py-1 bg-gradient-to-r from-primary/20 to-accent/20 border-2 border-primary/50">
+                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse shadow-lg shadow-primary/50"></div>
+                  <span className="theme-primary text-sm font-black uppercase">Live</span>
+                </div>
               </div>
             </div>
           </header>
 
           {/* Main Content with Animated Background */}
-          <main className="flex-1 p-6 relative overflow-auto">
-            <div className="absolute inset-0 opacity-20 pointer-events-none">
-              <div className="absolute top-20 left-10 w-20 h-20 bg-white rounded-full blur-3xl animate-pulse"></div>
-              <div className="absolute top-40 right-20 w-32 h-32 bg-blue-300 rounded-full blur-3xl animate-pulse delay-1000"></div>
-              <div className="absolute bottom-20 left-1/2 w-24 h-24 bg-purple-300 rounded-full blur-3xl animate-pulse delay-2000"></div>
+          <main className="flex-1 p-8 relative overflow-auto bg-gradient-to-br from-[#252A34] to-[#1a1d23]">
+            <div className="absolute inset-0 opacity-10 pointer-events-none">
+              <div className="absolute top-20 left-10 w-32 h-32 bg-primary rounded-full blur-3xl animate-pulse"></div>
+              <div className="absolute top-40 right-20 w-40 h-40 bg-accent rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+              <div className="absolute bottom-20 left-1/2 w-36 h-36 bg-primary rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
             </div>
             
             <div className="relative z-10 max-w-7xl mx-auto">
@@ -413,10 +369,10 @@ const Dashboard = () => {
 
               {activeTab === 'income' && (
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 animate-fadeIn">
-                  <div className="animate-slideInLeft">
+                  <div>
                     <IncomeForm />
                   </div>
-                  <div className="animate-slideInUp">
+                  <div>
                     <TransactionList />
                   </div>
                 </div>
@@ -424,10 +380,10 @@ const Dashboard = () => {
 
               {activeTab === 'expenses' && (
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-8 animate-fadeIn">
-                  <div className="animate-slideInLeft">
+                  <div>
                     <ExpenseForm />
                   </div>
-                  <div className="animate-slideInUp">
+                  <div>
                     <TransactionList />
                   </div>
                 </div>
@@ -441,10 +397,10 @@ const Dashboard = () => {
 
               {activeTab === 'analytics' && (
                 <div className="space-y-8 animate-fadeIn">
-                  <div className="animate-slideInUp">
+                  <div>
                     <ExpenseChart />
                   </div>
-                  <div className="animate-slideInLeft">
+                  <div>
                     <BudgetSummary />
                   </div>
                 </div>

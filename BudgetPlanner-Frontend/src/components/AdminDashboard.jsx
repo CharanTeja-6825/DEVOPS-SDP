@@ -45,17 +45,17 @@ function AdminDashboard() {
 
   const renderTable = () => {
     if (loading) {
-      return <div className="text-blue-200 text-center py-8">Loading users...</div>;
+      return <div className="text-light/60 text-center py-8">Loading users...</div>;
     }
 
     if (users.length === 0) {
-      return <div className="text-blue-200 text-center py-8">No users found</div>;
+      return <div className="text-light/60 text-center py-8">No users found</div>;
     }
 
     return (
       <div className="overflow-x-auto">
         <table className="w-full text-left rounded-xl overflow-hidden">
-          <thead className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+          <thead className="bg-[#1f2229]">
             <tr>
               <th className="py-3 px-4">ID</th>
               <th className="py-3 px-4">Username</th>
@@ -64,18 +64,18 @@ function AdminDashboard() {
               <th className="py-3 px-4">Actions</th>
             </tr>
           </thead>
-          <tbody className="bg-white/10 text-blue-100">
+          <tbody className="bg-[#2a3038]">
             {users
               .filter(({ role }) => role?.toLowerCase() === 'user') // normalize role check
               .map((user) => (
-                <tr key={user.id} className="hover:bg-purple-900/20 transition-all">
+                <tr key={user.id} className="hover:bg-[#343b45] transition-all">
                   <td className="py-3 px-4 font-mono">{user.id}</td>
                   <td className="py-3 px-4">{user.username}</td>
                   <td className="py-3 px-4">{user.useremail || user.email}</td>
                   <td className="py-3 px-4 capitalize">{user.role}</td>
                   <td className="py-3 px-4">
                     <button
-                      className="bg-gradient-to-r from-rose-500 to-pink-600 text-white px-4 py-2 rounded-xl font-semibold shadow hover:from-rose-600 hover:to-pink-700 transition-all duration-200 disabled:opacity-50"
+                      className="btn btn-accent px-4 py-2 font-semibold disabled:opacity-50"
                       onClick={() => handleDelete(user.id)}
                       disabled={deletingId === user.id}
                     >
@@ -91,12 +91,12 @@ function AdminDashboard() {
   };
 
   return (
-    <div className="min-h-screen gradient-purple flex flex-col items-center justify-center px-4 py-10">
+    <div className="min-h-screen theme-bg flex flex-col items-center justify-center px-4 py-10">
       {/* Navbar */}
-      <nav className="w-full max-w-4xl flex justify-between items-center bg-gradient-to-r from-blue-500 to-purple-600 rounded-t-3xl px-8 py-4 shadow-lg">
-        <span className="text-2xl font-bold text-white tracking-wide">Admin Dashboard</span>
+      <nav className="w-full max-w-4xl flex justify-between items-center bg-[#1f2229] rounded-t-3xl px-8 py-4 shadow-lg border border-[#30343c]">
+        <span className="text-2xl font-bold tracking-wide">Admin Dashboard</span>
         <button
-          className="bg-gradient-to-r from-rose-500 to-pink-600 text-white px-5 py-2 rounded-xl font-semibold shadow hover:from-rose-600 hover:to-pink-700 transition-all duration-200"
+          className="btn btn-outline px-5 py-2"
           onClick={() => {
             logout();
             window.location.href = '/';
@@ -107,11 +107,11 @@ function AdminDashboard() {
       </nav>
 
       {/* Main Content */}
-      <div className="w-full max-w-4xl bg-white/10 rounded-b-3xl shadow-2xl p-8">
-        <h2 className="text-3xl font-bold text-white mb-6 text-center">Admin User Management</h2>
+      <div className="w-full max-w-4xl bg-[#2a3038] rounded-b-3xl shadow-2xl p-8 border border-[#30343c]">
+        <h2 className="text-3xl font-bold mb-6 text-center">Admin User Management</h2>
 
         {error && (
-          <div className="bg-red-500/20 border border-red-500/30 text-red-200 px-4 py-3 rounded-xl text-sm mb-4 text-center">
+          <div className="px-4 py-3 rounded-xl text-sm mb-4 text-center border border-accent/40 bg-accent/10 theme-accent">
             {error}
           </div>
         )}

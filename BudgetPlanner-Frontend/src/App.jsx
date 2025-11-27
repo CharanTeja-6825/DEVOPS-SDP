@@ -22,15 +22,15 @@ function AppContent() {
   // If user is not logged in, show login/register pages
   if (currentPage === 'login') {
     return (
-      <div className="min-h-screen gradient-purple flex items-center justify-center px-4">
-        <div className="w-full max-w-md">
+      <div className="min-h-screen theme-bg flex items-center justify-center px-4">
+        <div className="w-full max-w-md card animate-fadeIn">
           <Login onLoginSuccess={() => setCurrentPage('dashboard')} />
           <div className="text-center mt-6">
             <button
               onClick={() => setCurrentPage('register')}
-              className="text-white hover:text-blue-200 transition-colors duration-300 font-medium"
+              className="btn-outline w-full mt-2"
             >
-              Don't have an account? <span className="underline decoration-2 decoration-blue-300">Register here</span>
+              Don't have an account? <span className="theme-accent">Register</span>
             </button>
           </div>
         </div>
@@ -40,15 +40,15 @@ function AppContent() {
 
   if (currentPage === 'register') {
     return (
-      <div className="min-h-screen gradient-purple flex items-center justify-center px-4">
-        <div className="w-full max-w-md">
+      <div className="min-h-screen theme-bg flex items-center justify-center px-4">
+        <div className="w-full max-w-md card animate-fadeIn">
           <Register onRegisterSuccess={() => setCurrentPage('dashboard')} />
           <div className="text-center mt-6">
             <button
               onClick={() => setCurrentPage('login')}
-              className="text-white hover:text-blue-200 transition-colors duration-300 font-medium"
+              className="btn-outline w-full mt-2"
             >
-              Already have an account? <span className="underline decoration-2 decoration-blue-300">Login here</span>
+              Already have an account? <span className="theme-accent">Login</span>
             </button>
           </div>
         </div>
