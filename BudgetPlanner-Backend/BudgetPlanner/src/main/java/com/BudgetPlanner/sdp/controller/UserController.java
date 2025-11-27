@@ -1,5 +1,6 @@
 package com.BudgetPlanner.sdp.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +25,12 @@ public class UserController {
 	UserService userService;
 	@Autowired 
 	UserRepository userRepo;
+
+	 @GetMapping("/")
+    public String user() {
+        return "this is user controller";
+    }
+
 	
 	@PostMapping("/register")
 	public ResponseEntity<User> register(@RequestBody User user) {
@@ -54,3 +61,5 @@ public class UserController {
 	  }
 
 }
+
+

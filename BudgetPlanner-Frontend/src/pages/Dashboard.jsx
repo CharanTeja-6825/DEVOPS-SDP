@@ -102,7 +102,7 @@ const DashboardOverview = ({ onQuickAction }) => {
           <div className="glass rounded-2xl p-6 shadow-2xl border border-white/20 animate-slideInLeft">
             <h3 className="text-xl font-bold text-white mb-6 flex items-center space-x-2">
               <span>⚡</span>
-              <span>Quick Actions</span>
+              <span>Quick Action</span>
             </h3>
             <div className="space-y-3">
               <button 

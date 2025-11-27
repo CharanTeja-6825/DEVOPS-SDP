@@ -29,6 +29,12 @@ public class SavingGoalController {
 	
 	@Autowired
 	SavingGoalsRepository goalRepo;
+
+	 @GetMapping("/")
+    public String goals() {
+        return "this is goals controller";
+    }
+
 	
 	@PostMapping("/create")
 	public ResponseEntity<SavingGoals> create(@RequestBody SavingGoals goal){
@@ -64,3 +70,4 @@ public class SavingGoalController {
 	}
 	
 }
+

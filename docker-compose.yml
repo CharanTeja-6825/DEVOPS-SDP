@@ -16,7 +16,7 @@ services:
     image: charanteja1964/sdp-backend:latest
     container_name: springboot
     ports:
-      - "2025:1430"
+      - "2006:1430"
     depends_on:
       - mysqldb
     restart: on-failure
@@ -39,3 +39,4 @@ volumes:
 
 networks:
   springboot-mysql-net:
+
