@@ -1,5 +1,7 @@
 package com.BudgetPlanner.sdp.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +41,9 @@ public class UserService {
 	    }).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
 	}
 
-	
+	public List<User> allUsers(){
+		return userRepo.findAll();
+	}
 	
 	
 }

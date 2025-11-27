@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import AdminLogin from './pages/AdminLogin';
 import Dashboard from './pages/Dashboard';
 import AdminDashboard from './components/AdminDashboard';
 
@@ -11,9 +12,9 @@ function AppContent() {
 
   // If user is logged in, show appropriate dashboard
   if (user) {
-    // Check user role from session storage
-    const userRole = sessionStorage.getItem('userRole');
-    if (userRole === 'admin') {
+    // Check user type from session storage
+    const userType = sessionStorage.getItem('userType');
+    if (userType === 'admin') {
       return <AdminDashboard />;
     }
     return <Dashboard />;
@@ -25,12 +26,18 @@ function AppContent() {
       <div className="min-h-screen gradient-purple flex items-center justify-center px-4">
         <div className="w-full max-w-md">
           <Login onLoginSuccess={() => setCurrentPage('dashboard')} />
-          <div className="text-center mt-6">
+          <div className="text-center mt-6 space-y-3">
             <button
               onClick={() => setCurrentPage('register')}
-              className="text-white hover:text-blue-200 transition-colors duration-300 font-medium"
+              className="text-white hover:text-blue-200 transition-colors duration-300 font-medium block w-full"
             >
               Don't have an account? <span className="underline decoration-2 decoration-blue-300">Register here</span>
+            </button>
+            <button
+              onClick={() => setCurrentPage('adminLogin')}
+              className="text-orange-200 hover:text-orange-100 transition-colors duration-300 font-medium block w-full"
+            >
+              Admin? <span className="underline decoration-2 decoration-orange-300">Sign in here</span>
             </button>
           </div>
         </div>
@@ -49,6 +56,24 @@ function AppContent() {
               className="text-white hover:text-blue-200 transition-colors duration-300 font-medium"
             >
               Already have an account? <span className="underline decoration-2 decoration-blue-300">Login here</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentPage === 'adminLogin') {
+    return (
+      <div className="min-h-screen gradient-purple flex items-center justify-center px-4">
+        <div className="w-full max-w-md">
+          <AdminLogin onLoginSuccess={() => setCurrentPage('adminDashboard')} />
+          <div className="text-center mt-6">
+            <button
+              onClick={() => setCurrentPage('login')}
+              className="text-white hover:text-blue-200 transition-colors duration-300 font-medium"
+            >
+              Not an admin? <span className="underline decoration-2 decoration-blue-300">User login here</span>
             </button>
           </div>
         </div>

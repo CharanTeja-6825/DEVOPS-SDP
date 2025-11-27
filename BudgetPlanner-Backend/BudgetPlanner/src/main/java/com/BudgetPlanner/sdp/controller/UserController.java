@@ -1,10 +1,12 @@
 package com.BudgetPlanner.sdp.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -59,7 +61,13 @@ public class UserController {
 	        User user = userService.updateUser(id, updatedUser);
 	        return ResponseEntity.ok(user);
 	  }
-
+	 
+	 @GetMapping("/all")
+	 public ResponseEntity<?> allUsers(){
+		 List<User> users = userService.allUsers();
+		 if(users.size() == 0) return ResponseEntity.status(HttpStatus.NO_CONTENT).body("No Users Found");
+		 else return ResponseEntity.status(HttpStatus.FOUND).body(users);
+	 }
 }
 
 

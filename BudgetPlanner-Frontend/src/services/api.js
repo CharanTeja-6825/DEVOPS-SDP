@@ -5,16 +5,24 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 class ApiService {
   // Admin APIs
   async getAllUsers() {
-    return this.request('/admin-api/users', {
+    return this.request('/admin/users', {
       method: 'GET',
     });
   }
 
   async deleteUser(userId) {
-    return this.request(`/admin-api/users/${userId}`, {
+    return this.request(`/admin/users/${userId}`, {
       method: 'DELETE',
     });
   }
+
+  async adminLogin(admin){
+    return this.request(`/admin/login` , {
+      method: 'POST',
+      body: JSON.stringify(admin) 
+    });
+  }
+
   constructor() {
     this.baseURL = API_BASE_URL;
   }

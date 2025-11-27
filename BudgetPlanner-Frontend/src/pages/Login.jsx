@@ -34,10 +34,6 @@ const Login = ({ onLoginSuccess }) => {
       const result = await login(user);
       
       if (result.success) {
-        // Store user role in session storage
-        if (result.user && result.user.role) {
-          sessionStorage.setItem('userRole', result.user.role);
-        }
         onLoginSuccess();
       } else {
         setError(result.error || 'Login failed');

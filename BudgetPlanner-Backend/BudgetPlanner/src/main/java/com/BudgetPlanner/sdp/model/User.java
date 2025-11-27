@@ -20,16 +20,8 @@ public class User {
 	String email;
 	@Column(name = "password",nullable = false)
 	String password;
-	@Column(name = "role", nullable = false)
-	String role;
 	
-	public void setRole(String role) {
-		this.role = role;
-	}
-	
-	public String getRole() {
-		return role;
-	}
+
 	public Long getId() {
 		return id;
 	}

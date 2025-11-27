@@ -25,19 +25,38 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  // Accepts a user object { username, password }
+  // User login - for normal users only
   const login = async (userObj) => {
     try {
       setLoading(true);
       const userData = await apiService.login(userObj);
-      // Debug log to check user object and role
-      console.log('Login response userData:', userData);
+      console.log('User login response:', userData);
       // Save user data
       setUser(userData);
       sessionStorage.setItem('user', JSON.stringify(userData));
+      sessionStorage.setItem('userType', 'user');
       return { success: true, user: userData };
     } catch (error) {
-      console.error('Login failed:', error);
+      console.error('User login failed:', error);
+      return { success: false, error: error.message };
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Admin login - for administrators only
+  const adminLogin = async (adminObj) => {
+    try {
+      setLoading(true);
+      const adminData = await apiService.adminLogin(adminObj);
+      console.log('Admin login response:', adminData);
+      // Save admin data
+      setUser(adminData);
+      sessionStorage.setItem('user', JSON.stringify(adminData));
+      sessionStorage.setItem('userType', 'admin');
+      return { success: true, user: adminData };
+    } catch (error) {
+      console.error('Admin login failed:', error);
       return { success: false, error: error.message };
     } finally {
       setLoading(false);
@@ -88,7 +107,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, updateUserProfile, loading }}>
+    <AuthContext.Provider value={{ user, login, adminLogin, register, logout, updateUserProfile, loading }}>
       {children}
     </AuthContext.Provider>
   );
